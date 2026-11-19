@@ -1,0 +1,32 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+# O(n)
+# 1st Problem
+        count = {}
+
+        for num in nums:
+            count[num] = count.get(num, 0) + 1
+
+        sorted_num = sorted(count, key=count.get, reverse = True)
+
+        return sorted_num[:k]
+
+# 2nd Problem
+# Bucket Sort
+        countNum = {}
+        freq = [[] for i in range(len(nums) + 1)]
+
+        for n in nums:
+            countNum[n] = 1 + countNum.get(n, 0)
+        for n, c in countNum.items():
+            freq[c].append(n)
+
+        res = []
+        for i in range(len(freq) - 1, 0, -1):
+            for n in freq[i]:
+                res.append(n)
+                if len(res) == k:
+                    return res
+
+        
+
